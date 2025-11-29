@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Create Account - ProjectHub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: navy;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .create-container {
+      background-color: white;
+      width: 700px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* Animated gradient background */
+    @keyframes spaceGradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .create-header {
+      background: linear-gradient(-45deg, #2f5aa8, #ff00cc, #2f5aa8, #8e44ad);
+      background-size: 400% 400%;
+      animation: spaceGradient 10s ease infinite;
+      color: white;
+      text-align: center;
+      padding: 30px;
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .create-form {
+      padding: 50px 60px;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      width: 120px;
+      font-weight: 500;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .form-group input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-bottom: 2px solid #ccc;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus {
+      border-bottom-color: #2f5aa8;
+    }
+
+    .create-btn {
+      display: block;
+      width: 200px;
+      margin: 40px auto 0;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      background: linear-gradient(90deg, #2f5aa8, #ff00cc, #2f5aa8);
+      background-size: 300% 100%;
+      animation: spaceGradient 6s ease infinite;
+      transition: background-position 0.3s ease;
+    }
+
+    .create-btn:hover {
+      background-position: 100% 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="create-container">
+    <div class="create-header">CREATE ACCOUNT</div>
+
+    <form class="create-form" id="registerForm">
+      <div class="form-group">
+        <label for="username">Username :</label>
+        <input type="text" id="username" placeholder="Enter your username" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input type="email" id="email" placeholder="Enter your email" />
+      </div>
+
+      <div class="form-group">
+        <label for="branch">Branch :</label>
+        <input type="text" id="branch" placeholder="Enter your branch" />
+      </div>
+
+      <div class="form-group">
+        <label for="class">Class :</label>
+        <input type="text" id="class" placeholder="Enter your class" />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone No. :</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password :</label>
+        <input type="password" id="password" placeholder="Enter your password" />
+      </div>
+
+      <button type="submit" class="create-btn">CREATE</button>
+    </form>
+  </div>
+
+</body>
+</html>
+<script src="js/auth.js"></script>

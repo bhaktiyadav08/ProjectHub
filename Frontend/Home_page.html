@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ProjectHub</title>
+  <style>
+    /* Animated gradient background */
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(-45deg, #0b1440, #8800aa, #0b1440, #8800aa);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: white;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: transparent;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 2.0rem; /* Bigger size for logo text */
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav .logo img {
+      height: 36px; /* Adjusted height for new logo */
+      width: auto;
+      display: block;
+    }
+
+    nav .login-btn {
+      background-color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 5px;
+      color: #0b1440;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    nav .login-btn:hover {
+      background-color: #dcdcdc;
+    }
+
+    /* Main content */
+    main {
+      text-align: center;
+      padding: 20px 50px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    main h1 {
+      font-size: 2.8rem; /* Restored size */
+      font-weight: 900;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(255 255 255 / 0.75);
+    }
+
+    main p.subtitle {
+      font-weight: 500;
+      font-size: 1.2rem; /* Restored size */
+      margin-bottom: 40px;
+      color: rgba(255 255 255 / 0.85);
+    }
+
+    /* Cards grid */
+    .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding-bottom: 50px;
+    justify-items: center;
+  }
+
+  .cards .card:last-child {
+    grid-column: 2 / 3;
+    justify-self: center;
+    width: 100%;
+    max-width: 280px;
+  }
+
+    /* Individual card */
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      color: #1f3573;
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      font-size: 1.3em;
+      margin-bottom: 12px;
+      font-weight: 700;
+      color: #314a9f;
+    }
+
+    .card p {
+      font-size: 1em;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    /* Scrollbar styling for better look */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.5);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <span>🚀</span> ProjectHub
+    </div>
+    <button class="login-btn" onclick="window.location.href='login_page.html'">LOGIN</button>
+  </nav>
+
+  <main>
+    <h1>Welcome to ProjectHub</h1>
+    <p class="subtitle">Your all-in-one collaborative project platform</p>
+
+    <section class="cards">
+      <article class="card">
+        <h3>Team Collaboration</h3>
+        <p>Create, manage, and work on projects with your team in real-time from anywhere.</p>
+      </article>
+      <article class="card">
+        <h3>Task Management</h3>
+        <p>Assign tasks, set deadlines, and track progress with an intuitive dashboard.</p>
+      </article>
+      <article class="card">
+        <h3>Live Chat</h3>
+        <p>Communicate seamlessly within each project using integrated chat features.</p>
+      </article>
+      <article class="card">
+        <h3>File Sharing</h3>
+        <p>Upload, organize, and share files securely with your team.</p>
+      </article>
+    </section>
+  </main>
+  <script src="js/auth.js"></script>
+</body>
+</html>
+  

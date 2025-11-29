@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProjectHub Dashboard</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 🔥 Gradient Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #0b1440, #8800aa, #0b1440, #8800aa);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    nav .logo {
+      font-weight: 500;
+      font-size: 2.8rem;
+      color: white;
+    }
+
+    nav .login-btn {
+      background-color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 5px;
+      color: #0b1440;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    nav .login-btn:hover {
+      background-color: #dcdcdc;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: block;
+      transition: background 0.3s;
+      font-size: larger;
+    }
+
+    .sidebar a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+   /* File Operations Bar */
+    .file-ops {
+         margin-left: 2px;
+    width: calc(100% - 2px);
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px 0;
+    }
+
+    .file-ops a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.3s, border-bottom 0.3s;
+      position: relative;
+    }
+
+    /* Hover effect */
+    .file-ops a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Active tab effect */
+    .file-ops a.active {
+     border-bottom: 3px solid #ffdd57;
+    font-weight: bold;
+    background-color: yellow;
+    color: black;
+    }
+    .sidebar a.active {
+     border-bottom: 3px solid #ffdd57;
+    font-weight: bold;
+    background-color: yellow;
+    color: black;
+    }
+
+    /* Content area */
+    .content {
+      flex: 1;
+      text-align: center;
+      padding: 40px;
+      background-color: white;
+    }
+
+    
+    .content {
+  flex: 1;
+  padding: 40px;
+  background-color: white;
+  text-align: center;
+}
+
+.content h1{
+    color: navy;
+    font-size: xxx-large;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+
+.file-item {
+  background-color: blueviolet;
+  border: 2px solid #0b1440;
+  width: 90%;
+  /* max-width: 700px; */
+  height: 60px;
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+.info-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.info-btn:hover {
+  color: #0b1440;
+}
+
+/* Loading Dots (like in image) */
+.loading-dots {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.loading-dots span {
+  width: 10px;
+  height: 10px;
+  background-color: #3b5c8a;
+  border-radius: 50%;
+  display: inline-block;
+}
+.file-item.selected {
+  background-color:yellow;
+  color:black;
+ 
+}
+.file-item.selected .info-btn {
+  color: black;             /* button icon/text color */
+}
+</style>
+</head>
+<body id="workspacepage">
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🚀 GroupName</div>
+    <button class="login-btn" onclick="window.location.href='login_page.html'">LEADER LOGGED-IN</button>
+  </nav>
+  <!-- Layout -->
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <br>
+    <a href="Leader_Group_Info.html" >📂 Group Info</a><br><br>
+    <a href="Leader_Task_Assign.html">📝 Tasks Management</a><br><br>
+    <a href="Leader_Project_Progress.html">📊 Project Progress</a><br><br>
+    <a href="Leader_File_List.html" class="active">📁 File List</a><br><br>
+    <a href="leader_Group_Chat.html">💬 Group Chat</a><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <a href="#"id="groupLogoutBtn">🚪 Log Out</a>
+  </div>
+
+    <!-- Main area -->
+    <div class="main">
+      <!-- File Operations Bar -->
+  <div class="file-ops">
+    <a href="Leader_Create_File.html"><i class="fa-solid fa-plus"></i> Upload File</a>
+   <a href="#" id="save-file-btn"><i class="fa-solid fa-floppy-disk"></i> Save File</a>
+    <a href="#"id="open-file-btn"><i class="fa-solid fa-folder-open"></i> Open File</a>
+    <a href="#"id="rename-file-btn"><i class="fa-solid fa-pen"></i> Rename File</a>
+    <a href="#"id="delete-file-btn"><i class="fa-solid fa-trash"></i> Delete File</a>
+   
+  </div>
+
+      <!-- Content -->
+      <div class="content">
+  <h1>FILES LIST</h1>
+  <div class="file-list" id="fileListContainer">
+  <!-- JS will dynamically insert file items here -->
+</div>
+
+<!-- Optional: Loading dots -->
+<div class="loading-dots">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+</div>
+    </div>
+  </div>
+   <script src="js/workspace.js"></script>
+</body>
+</html>

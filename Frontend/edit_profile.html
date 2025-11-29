@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="styles.css" /> <!-- Optional external CSS -->
+  <style>
+    :root {
+      --primary-color: #0b1440;
+      --secondary-color: #8800aa;
+      --card-color: #fff;
+      --text-color: #1f3573;
+      --shadow-light: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(-45deg, var(--primary-color), var(--secondary-color));
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-color);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .edit-container {
+      background: var(--card-color);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px var(--shadow-light);
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 500px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .edit-container h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      margin-top: 18px;
+      color: #333;
+    }
+
+    form input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    form input:focus {
+      border-color: var(--secondary-color);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 30px;
+      background: linear-gradient(to right, #3b3a99, #5f59c5);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 12px rgba(59, 58, 153, 0.3);
+    }
+
+    button[type="submit"]:hover {
+      background: linear-gradient(to right, #2a2973, #4948aa);
+      box-shadow: 0 6px 16px rgba(42, 41, 115, 0.5);
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    .toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, #3b3a99, #5f59c5);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 2000;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+  </style>
+</head>
+<body>
+
+  <div class="edit-container">
+    <h2>Edit Profile</h2>
+    <form id="editProfileForm">
+      <label for="editUsername">Username</label>
+      <input type="text" id="editUsername" name="username" required />
+
+      <label for="editEmail">Email</label>
+      <input type="email" id="editEmail" name="email" required />
+
+      <label for="editBranch">Branch</label>
+      <input type="text" id="editBranch" name="branch" />
+
+      <label for="editClass">Class</label>
+      <input type="text" id="editClass" name="class" />
+
+      <label for="editPhone">Phone</label>
+      <input type="text" id="editPhone" name="phone" />
+
+      <button type="submit">Save Changes</button>
+    </form>
+
+    <button id="backDashboardBtn">← Back to Dashboard</button>
+        </div>
+<div id="toast" class="toast">Profile updated successfully!</div>
+  <script src="js/auth.js"></script>
+</body>
+</html>

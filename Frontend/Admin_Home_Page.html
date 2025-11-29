@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Group Management UI</title>
+<style>
+  /* Gradient animation keyframes */
+ @keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(270deg, #4B007B, #10064E, #4B007B, #10064E);
+    background-size: 800% 800%;
+    animation: gradientShift 20s ease infinite;
+    color: white;
+  }
+
+  /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: transparent;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+
+    nav .logo {
+      font-weight: 700;
+      font-size: 2.0rem; /* Bigger size for logo text */
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav .logo img {
+      height: 36px; /* Adjusted height for new logo */
+      width: auto;
+      display: block;
+    }
+
+    nav .login-btn {
+      background-color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 5px;
+      color: #0b1440;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    nav .login-btn:hover {
+      background-color: #dcdcdc;
+    }
+
+ 
+
+  /* Tabs container */
+  .tabs {
+  display: flex;
+  width: 100%;
+  background: blueviolet;
+  border-radius: 6px 6px 0 0;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 1rem;
+  text-align: center;
+  background-color: #6A0DAD; /* Inactive color */
+  color: white;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.tab-btn:hover {
+  background-color: #7C2AC8;
+}
+
+.tab-btn.active {
+  background-color: #FFD700; /* Active color */
+  color: #000;
+}
+
+
+  /* Main container for tab content */
+ main {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: linear-gradient(270deg, #4B007B, #10064E, #4B007B, #10064E);
+  background-size: 800% 800%;
+  animation: gradientShift 20s ease infinite;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 0 25px rgba(75, 0, 123, 0.7);
+  color: white; /* white text inside the form */
+}
+
+/* Form style */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Labels */
+label{
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 10px #fff;
+}
+
+p{
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 10px #fff;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="password"],select {
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 0.6rem 1rem;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  text-shadow: 0 0 5px #000;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Input focus */
+input:focus {
+  border-color: #ffd600;
+  box-shadow: 0 0 8px #ffd600;
+}
+
+/* Button */
+button {
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  color: white;
+  font-weight: 700;
+  border-radius: 5px;
+  cursor: pointer;
+  text-shadow: 0 0 8px #fff;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+  /* Tab content sections */
+  .tab-content {
+    display: none;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  #leaderName {
+  color: black;           /* text color */
+  background-color: white; /* dropdown background */
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+ .group-container {
+    margin: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .group-box {
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+    padding: 20px 15px;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+  }
+  .group-box:hover {
+    background-color: yellow;
+  }
+  p {
+    font-weight: 600;
+    color: darkblue;
+    font-size: larger;
+  }
+  /* Profile Button */
+  #profileBtn {
+    width: 45px;
+    height: 45px;
+    background-color: #3b3a99;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: box-shadow 0.3s ease;
+  }
+  #profileBtn:hover {
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  }
+
+  /* Sidebar */
+  #sidebar {
+    width: 300px;
+    padding: 30px 40px 40px;
+    background: #ffffff;
+    color: #222;
+    box-shadow: -8px 0 25px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    overflow-y: auto;
+    transition: transform 0.4s ease;
+    transform: translateX(100%);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    z-index: 1000;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  #sidebar.active {
+    transform: translateX(0);
+  }
+  #sidebar h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #222;
+  }
+  #sidebar .profile-info strong {
+    display: block;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #222;
+  }
+  #sidebar .profile-info span {
+    color: #666;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+  }
+  #sidebar .profile-info {
+    margin-bottom: 20px;
+  }
+  #sidebar button {
+    width: 100%;
+    padding: 12px 0;
+    margin-bottom: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(to right, #3b3a99, #5f59c5);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(59, 58, 153, 0.3);
+  }
+  #sidebar button:hover {
+    background: linear-gradient(to right, #2a2973, #4948aa);
+    box-shadow: 0 6px 15px rgba(42, 41, 115, 0.5);
+  }
+
+  /* Overlay */
+  #overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    visibility: hidden;
+    z-index: 999;
+  }
+  #overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+.group-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.group-actions button {
+  background: #ffd700;
+  color: #000;
+  border: none;
+  padding: 5px 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.group-actions button:hover {
+  background: #e5c100;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+  background-color: #222;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  color: white;
+}
+.close {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+/* Edit Group Modal aligned with main components */
+#editGroupModal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5); /* semi-transparent overlay */
+}
+
+#editGroupModal .modal-content {
+  background: linear-gradient(270deg, #4B007B, #10064E, #4B007B, #10064E);
+  background-size: 800% 800%;
+  animation: gradientShift 20s ease infinite;
+  margin: 5% auto; /* center vertically */
+  padding: 2rem;
+  border-radius: 0 0 10px 10px; /* same as main */
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 25px rgba(75, 0, 123, 0.7);
+  color: white;
+}
+
+/* Close button */
+#editGroupModal .close {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+/* Labels and inputs inside modal (same as main) */
+#editGroupForm label {
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 10px #fff;
+}
+
+#editGroupForm input[type="text"],
+#editGroupForm input[type="password"],
+#editGroupForm select {
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 0.6rem 1rem;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  text-shadow: 0 0 5px #000;
+}
+
+#editGroupForm input:focus,
+#editGroupForm select:focus {
+  border-color: #ffd600;
+  box-shadow: 0 0 8px #ffd600;
+}
+
+/* Buttons inside modal */
+#editGroupForm button {
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  color: white;
+  font-weight: 700;
+  border-radius: 5px;
+  cursor: pointer;
+  text-shadow: 0 0 8px #fff;
+  transition: background 0.3s ease;
+}
+
+#editGroupForm button:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Members checkbox container */
+#editGroupMembersCheckboxContainer label {
+  display: block;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+</style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <span>🚀</span>ProjectHub
+    </div>
+  <div id="profileBtn">U</div>
+  </nav>
+<div id="sidebar">
+    <h2>Profile</h2>
+    <div class="profile-info">
+      <strong id="profileName">User</strong>
+      <span id="profileEmail">user@example.com</span>
+    </div>
+    <button id="editProfileBtn">Edit Profile</button>
+    <button id="logoutBtn">Logout</button>
+  </div>
+  <div id="overlay"></div>
+<div class="tabs">
+  <button class="tab-btn active" data-tab="create">CREATE GROUP</button>
+  <button class="tab-btn" data-tab="view">VIEW GROUP</button>
+</div>
+
+<main>
+  <section id="create" class="tab-content active">
+    <form id="createGroupForm">
+      <label for="groupName">Group Name :</label>
+      <input type="text" id="groupName" placeholder="Enter group name" /><br>
+
+      <label for="leaderName">Leader Name:</label>
+     <select id="leaderName" required>
+      </select><br><br>
+      <label>Add Members:</label>
+<div id="groupMembersCheckboxContainer"></div>
+
+      <label for="groupPassword">Password :</label>
+      <input type="password" id="groupPassword" placeholder="Enter password" /><br>
+
+      <label for="groupCategory">Category :</label>
+      <input type="text" id="groupCategory" placeholder="Enter category" /><br>
+
+      <button type="submit">CREATE</button>
+    </form>
+  </section>
+
+  <section id="view" class="tab-content">
+  <div class="group-container" id="groupList">
+    <!-- Groups will be dynamically injected here -->
+  </div>
+</section>
+
+    
+  </div>
+  </section>
+  <div id="editGroupModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModal" class="close">&times;</span>
+    <h2>Edit Group</h2>
+    <form id="editGroupForm">
+      <label for="editGroupName">Group Name:</label>
+      <input type="text" id="editGroupName" required />
+
+      <label for="editLeaderName">Leader:</label>
+      <select id="editLeaderName" required></select>
+
+      <label>Edit Members:</label>
+<div id="editGroupMembersCheckboxContainer"></div>
+      <label for="editGroupPassword">Password (leave blank to keep unchanged):</label>
+<input type="password" id="editGroupPassword" placeholder="Enter new password if changing" />
+
+      <label for="editGroupCategory">Category:</label>
+      <input type="text" id="editGroupCategory" required />
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+</div>
+</main>
+<script src="js/auth.js">
+</script>
+</body>
+</html>

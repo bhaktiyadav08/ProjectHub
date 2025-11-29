@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProjectHub Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 🔥 Gradient Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #0b1440, #8800aa, #0b1440, #8800aa);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    nav .logo {
+      font-weight: 500;
+      font-size: 2.8rem;
+      color: white;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav .login-btn {
+      background-color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 5px;
+      color: #0b1440;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    nav .login-btn:hover {
+      background-color: #dcdcdc;
+    }
+
+    /* Notification Bell */
+    .notification-bell {
+      position: relative;
+      cursor: pointer;
+      font-size: 24px;
+      color: white;
+      padding: 8px;
+    }
+
+    .notification-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff4444;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+      min-width: 18px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: block;
+      font-size: larger;
+      transition: background 0.3s;
+      
+    }
+
+    .sidebar a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Content area */
+    .content {
+      flex: 1;
+      padding: 40px;
+      background-color: white;
+      text-align: center;
+    }
+
+    .content h1 {
+      color: navy;
+      font-size: xxx-large;
+      margin-bottom: 30px;
+    }
+
+    /* Task Cards */
+    .tasks-container {
+      display: grid;
+      color:black;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .task-card {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border-left: 5px solid #8800aa;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .task-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .task-card.priority-high {
+      border-left-color: #ff4444;
+    }
+
+    .task-card.priority-medium {
+      border-left-color: #ffaa00;
+    }
+
+    .task-card.priority-low {
+      border-left-color: #00aa00;
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .task-title {
+      font-size: 1.4rem;
+      color: #0b1440;
+      margin: 0;
+      flex: 1;
+    }
+
+    .task-status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .status-pending { 
+      background: #fff3cd; 
+      color: #856404; 
+    }
+    .status-in-progress { 
+      background: #cce7ff; 
+      color: #004085; 
+    }
+    .status-completed { 
+      background: #d4edda; 
+      color: #155724; 
+    }
+
+    .task-description {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .task-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .task-due-date {
+      font-weight: bold;
+      color: #8800aa;
+    }
+
+    .task-priority {
+      font-weight: bold;
+    }
+
+    .priority-high { color: #ff4444; }
+    .priority-medium { color: #ffaa00; }
+    .priority-low { color: #00aa00; }
+
+    .task-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .task-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn-start {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn-start:hover {
+      background: #0056b3;
+    }
+
+    .btn-complete {
+      background: #28a745;
+      color: white;
+    }
+
+    .btn-complete:hover {
+      background: #1e7e34;
+    }
+
+    .btn-completed {
+      background: #6c757d;
+      color: white;
+      cursor: not-allowed;
+    }
+
+    /* Notifications Dropdown */
+    .notifications-dropdown {
+      display: none;
+      position: absolute;
+      right: 20px;
+      top: 70px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 350px;
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .notifications-header {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0b1440;
+      color: white;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .notifications-header h3 {
+      margin: 0;
+    }
+
+    .notifications-list {
+      padding: 10px;
+    }
+
+    .notification-item {
+      padding: 12px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .notification-item.unread {
+      background: #f8f9fa;
+      font-weight: bold;
+    }
+
+    .notification-item:hover {
+      background: #f0f0f0;
+    }
+
+    .notification-item:last-child {
+      border-bottom: none;
+    }
+
+    .no-tasks {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #666;
+      font-size: 1.2rem;
+      padding: 40px;
+    }
+
+    /* Active tab effect */
+    .sidebar a.active {
+      border-bottom: 3px solid #ffdd57;
+      font-weight: bold;
+      background-color: yellow;
+      color: black;
+    }
+    .notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4444;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    min-width: 18px;
+    text-align: center;
+    font-weight: bold;
+    display: none; /* ADD THIS LINE */
+}
+
+/* Add Toast Message Styles */
+.toast-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1001;
+    font-weight: bold;
+    color: white;
+    display: none;
+}
+
+.toast-success {
+    background: #28a745;
+}
+
+.toast-error {
+    background: #dc3545;
+}
+  </style>
+</head>
+<body id="workspacepage">
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🚀 GroupName</div>
+    <div class="nav-right">
+      <div class="notification-bell" id="notificationBell">
+        <i class="fas fa-bell"></i>
+        <span class="notification-count" id="notificationCount">0</span>
+      </div>
+      <button class="login-btn" onclick="window.location.href='login_page.html'">MEMBER LOGGED-IN</button>
+    </div>
+  </nav>
+  
+  <!-- Notifications Dropdown -->
+  <div class="notifications-dropdown" id="notificationsDropdown">
+    <div class="notifications-header">
+      <h3>Notifications</h3>
+      <button id="markAllReadBtn" style="background: transparent; border: 1px solid white; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer;">Mark all read</button>
+    </div>
+    <div class="notifications-list" id="notificationsList">
+      <!-- Notifications will be loaded here -->
+    </div>
+  </div>
+
+  <!-- Layout -->
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <br>
+      <a href="Member_Group_Info.html">📂 Group Info</a><br><br>
+      <a href="Member_Task_Assigned.html" class="active">📝 Tasks Assigned</a><br><br>
+      <a href="Member_Project_Progress.html">📊 Project Progress</a><br><br>
+      <a href="Member_Files_List.html">📁 File List</a><br><br>
+      <a href="Member_Group_Chat.html">💬 Group Chat</a><br><br>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <a href="#" id="groupLogoutBtn">🚪 Log Out</a>
+    </div>
+
+    <!-- Main area -->
+    <div class="main">
+      <!-- Content -->
+      <div class="content">
+        <h1>TASKS ASSIGNED</h1>
+        <div class="tasks-container" id="tasksContainer">
+          <!-- Loading message that will be replaced by dynamic content -->
+          <div class="no-tasks">
+            <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #ccc; margin-bottom: 20px;"></i>
+            <h3 style="color: #666;">Loading tasks...</h3>
+          </div>
+        </div>
+      </div>
+  <!-- Toast Message -->
+   <div class="toast-message" id="toastMessage"></div>
+   <script src="/socket.io/socket.io.js"></script>
+ <script src="js/workspace.js"></script>
+</body>
+</html>

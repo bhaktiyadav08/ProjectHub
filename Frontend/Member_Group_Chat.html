@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group Chat - ProjectHub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 🔥 Gradient Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #0b1440, #8800aa, #0b1440, #8800aa);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    nav .logo {
+      font-weight: 500;
+      font-size: 2.8rem;
+      color: white;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav .login-btn {
+      background-color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 5px;
+      color: #0b1440;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    nav .login-btn:hover {
+      background-color: #dcdcdc;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: block;
+      font-size: larger;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Content area */
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: white;
+    }
+
+    /* Chat Container */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #0b1440;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .chat-header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f8f9fa;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      padding: 12px 15px;
+      border-radius: 15px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+
+    .message.own {
+      background: #007bff;
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 5px;
+    }
+
+    .message.other {
+      background: white;
+      border: 1px solid #e0e0e0;
+      margin-right: auto;
+      border-bottom-left-radius: 5px;
+    }
+
+    .message-sender {
+      font-weight: bold;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+      opacity: 0.9;
+    }
+
+    .message-text {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .message-time {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      text-align: right;
+      margin-top: 5px;
+    }
+
+    .message.own .message-time {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .message.other .message-time {
+      color: #666;
+    }
+
+    .chat-input-container {
+      padding: 20px;
+      border-top: 1px solid #e0e0e0;
+      background: white;
+    }
+
+    .typing-indicator {
+      height: 20px;
+      font-size: 0.8rem;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 10px;
+      padding: 0 10px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    #messageInput {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      outline: none;
+      font-size: 0.95rem;
+    }
+
+    #messageInput:focus {
+      border-color: #007bff;
+    }
+
+    .send-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.3s;
+    }
+
+    .send-btn:hover {
+      background: #0056b3;
+    }
+
+    .send-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* Online users */
+    .online-users {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .online-dot {
+      width: 8px;
+      height: 8px;
+      background: #4CAF50;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    /* Active tab effect */
+    .sidebar a.active {
+      border-bottom: 3px solid #ffdd57;
+      font-weight: bold;
+      background-color: yellow;
+      color: black;
+    }
+
+    .chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    border-radius: 15px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.message.own {
+    background: #007bff;
+    color: white;
+    margin-left: auto;
+    border-bottom-right-radius: 5px;
+}
+
+.message.other {
+    background: white;
+    border: 1px solid #e0e0e0;
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
+    color: #333; /* ✅ ADDED: Dark text for other messages */
+}
+
+.message-sender {
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    opacity: 0.9;
+}
+
+/* ✅ FIXED: Sender text colors */
+.message.own .message-sender {
+    color: rgba(255,255,255,0.9); /* White for own messages */
+}
+
+.message.other .message-sender {
+    color: #555; /* ✅ Dark color for other senders */
+}
+
+.message-text {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* ✅ FIXED: Message text colors */
+.message.own .message-text {
+    color: white; /* White for own messages */
+}
+
+.message.other .message-text {
+    color: #333; /* ✅ Dark color for other messages */
+}
+
+.message-time {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.message.own .message-time {
+    color: rgba(255,255,255,0.8);
+}
+
+.message.other .message-time {
+    color: #666; /* ✅ Dark color for other message times */
+}
+    /* No messages state */
+    .no-messages {
+      text-align: center;
+      color: #666;
+      padding: 40px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body id="workspacepage">
+  <!-- Navbar -->
+  <nav>
+    <div class="logo" id="groupLogo">🚀 Group Chat</div>
+    <div class="nav-right">
+      <button class="login-btn" id="userStatusBtn">MEMBER LOGGED-IN</button>
+    </div>
+  </nav>
+
+  <!-- Layout -->
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <br>
+      <a href="Member_Group_Info.html">📂 Group Info</a><br><br>
+      <a href="Member_Task_Assigned.html">📝 Tasks Assigned</a><br><br>
+      <a href="Member_Project_Progress.html">📊 Project Progress</a><br><br>
+      <a href="Member_Files_List.html">📁 File List</a><br><br>
+      <a href="Member_Group_Chat.html" class="active">💬 Group Chat</a><br><br>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <a href="#" id="groupLogoutBtn">🚪 Log Out</a>
+    </div>
+
+    <!-- Main area -->
+    <div class="main">
+      <!-- Content -->
+      <div class="content">
+        <div class="chat-container">
+          <div class="chat-header">
+            <h1>Group Chat</h1>
+            <div class="online-users">
+              <span class="online-dot"></span>
+              <span id="onlineCount">0 users online</span>
+            </div>
+          </div>
+          
+          <div class="chat-messages" id="chatMessages">
+            <div class="no-messages">
+              <i class="fas fa-comments" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+              <h3 style="color: #666;">No messages yet</h3>
+              <p style="color: #888;">Start a conversation with your group!</p>
+            </div>
+          </div>
+          
+          <div class="typing-indicator" id="typingIndicator"></div>
+          
+          <div class="chat-input-container">
+            <div class="input-group">
+              <input type="text" id="messageInput" placeholder="Type your message here..." 
+                     onkeypress="handleChatKeyPress(event)">
+              <button class="send-btn" onclick="sendChatMessage()">
+                <i class="fas fa-paper-plane"></i> Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/workspace.js"></script>
+</body>
+</html>

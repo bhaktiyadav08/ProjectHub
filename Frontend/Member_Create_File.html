@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ProjectHub Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* 🔥 Gradient Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #0b1440, #8800aa, #0b1440, #8800aa);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    nav .logo {
+      font-weight: 500;
+      font-size: 2.8rem;
+      color: white;
+    }
+
+    nav .login-btn {
+      background-color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 5px;
+      color: #0b1440;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    nav .login-btn:hover {
+      background-color: #dcdcdc;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: block;
+      transition: background 0.3s;
+      font-size: larger;
+    }
+
+    .sidebar a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    /* File Operations Bar */
+    .file-ops {
+      margin-left: 2px;
+      width: calc(100% - 2px);
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 10px 0;
+    }
+
+    .file-ops a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.3s, border-bottom 0.3s;
+      position: relative;
+    }
+
+    /* Hover effect */
+    .file-ops a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Active tab effect */
+    .file-ops a.active {
+      border-bottom: 3px solid #ffdd57;
+      font-weight: bold;
+      background-color: yellow;
+      color: black;
+    }
+    .sidebar a.active {
+      border-bottom: 3px solid #ffdd57;
+      font-weight: bold;
+      background-color: yellow;
+      color: black;
+    }
+
+    .content {
+  flex: 1;
+  background-color: white;
+  display: flex;
+  padding: 40px 20px;
+}
+
+.create-file-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.create-file-container label {
+     display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 3rem;
+}
+
+.create-file-container input[type="text"] {
+  width: 326%;
+  border: none;
+  border-bottom: 2px solid #333;
+  padding: 8px 4px;
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.create-file-container input[type="text"]:focus {
+  border-color: purple; /* bright yellow */
+}
+
+.create-file-container button {
+  background-color: purple;
+    border: none;
+    padding: 7px 56px;
+    font-weight: 700;
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+    border-radius: 13px;
+    width: 118%;
+    transition: background-color 0.3s ease;
+    letter-spacing: 1px;
+    margin-top: 36%;
+    margin-left: 108%;
+}
+
+.create-file-container button:hover {
+  background-color: #e6d500; /* slightly darker yellow */
+}
+
+  </style>
+</head>
+<body id="workspacepage">
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🚀 GroupName</div>
+    <button class="login-btn" onclick="window.location.href='login_page.html'">MEMBER LOGGED-IN</button>
+  </nav>
+
+  <!-- Layout -->
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <br />
+      <a href="Member_Group_Info.html">📂 Group Info</a><br /><br />
+      <a href="Member_Task_Assigned.html">📝 Tasks Assigned</a><br /><br />
+      <a href="Member_Project_Progress.html">📊 Project Progress</a><br /><br />
+      <a href="Member_Files_List.html">📁 File List</a><br /><br />
+      <a href="Member_Group_Chat.html">💬 Group Chat</a><br><br>
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <a href="#"id="groupLogoutBtn">🚪 Log Out</a>
+    </div>
+
+    <!-- Main area -->
+    <div class="main">
+      <!-- File Operations Bar -->
+      <div class="file-ops">
+        <a href="Member_Create_File.html" class="active"><i class="fa-solid fa-plus"></i> Upload File</a>
+        <a href="#" id="save-file-btn"><i class="fa-solid fa-floppy-disk"></i> Save File</a>
+        <a href="#"id="open-file-btn"><i class="fa-solid fa-folder-open"></i> Open File</a>
+        <a href="#"id="rename-file-btn"><i class="fa-solid fa-pen"></i> Rename File</a>
+        <a href="#"id="delete-file-btn"><i class="fa-solid fa-trash"></i> Delete File</a>
+       
+      </div>
+
+<!-- Content -->
+<div class="content">
+  <div class="create-file-container">
+    <form id="uploadFileForm" enctype="multipart/form-data">
+      <label for="fileInput">Choose File to Upload:</label><br><br>
+      <input type="file" id="fileInput" name="file" /><br><br>
+      <button type="submit">UPLOAD FILE</button>
+    </form>
+  </div>
+</div>
+
+
+    </div>
+  </div>
+   <script src="js/workspace.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProjectHub Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 🔥 Gradient Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #0b1440, #8800aa, #0b1440, #8800aa);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    nav .logo {
+      font-weight: 500;
+      font-size: 2.8rem;
+      color: white;
+    }
+
+    /* Profile Button in Navbar */
+    #profileBtn {
+      width: 45px;
+      height: 45px;
+      background-color: #3b3a99;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2em;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: box-shadow 0.3s ease;
+    }
+
+    #profileBtn:hover {
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    /* Slide-in Sidebar (Profile) */
+    #sidebar {
+      width: 300px;
+      padding: 30px 40px 40px;
+      background: #ffffff;
+      color: #222;
+      box-shadow: -8px 0 25px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      overflow-y: auto;
+      transition: transform 0.4s ease;
+      transform: translateX(100%);
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      z-index: 1000;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #sidebar.active {
+      transform: translateX(0);
+    }
+
+    #sidebar h2 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    #sidebar .profile-info strong {
+      display: block;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      color: #222;
+    }
+
+    #sidebar .profile-info span {
+      color: #666;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+    #sidebar .profile-info {
+  margin-bottom: 20px;  /* adds clean space below the profile info */
+}
+
+    #sidebar button {
+      width: 100%;
+      padding: 12px 0;
+      margin-bottom: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      background: linear-gradient(to right, #3b3a99, #5f59c5);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(59, 58, 153, 0.3);
+    }
+
+    #sidebar button:hover {
+      background: linear-gradient(to right, #2a2973, #4948aa);
+      box-shadow: 0 6px 15px rgba(42, 41, 115, 0.5);
+    }
+
+    /* Overlay */
+    #overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      visibility: hidden;
+      z-index: 999;
+    }
+
+    #overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* File Operations Bar */
+    .file-ops {
+      margin-left: 2px;
+      width: calc(100% - 2px);
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 10px 0;
+    }
+
+    .file-ops a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.3s, border-bottom 0.3s;
+      position: relative;
+    }
+
+    .file-ops a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .file-ops a.active {
+      border-bottom: 3px solid #ffdd57;
+      font-weight: bold;
+      background-color: yellow;
+      color: black;
+    }
+
+    /* Content area */
+    .content {
+      flex: 1;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .content h1 {
+      font-size: 6rem;
+      margin-top: 17%;
+      color: yellow;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🚀 GroupName</div>
+    <div id="profileBtn">U</div>
+  </nav>
+
+  <!-- Sidebar (Profile) -->
+  <div id="sidebar">
+    <h2>Profile</h2>
+    <div class="profile-info">
+      <strong id="profileName">User</strong>
+      <span id="profileEmail">user@example.com</span>
+    </div>
+    <button id="editProfileBtn">Edit Profile</button>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay"></div>
+
+  <!-- Layout -->
+  <div class="layout">
+    <!-- Main area -->
+    <div class="main">
+      <!-- File Operations Bar -->
+      <div class="file-ops">
+        <a href="Member_Create_File.html"><i class="fa-solid fa-plus"></i> Create File</a>
+        <a href=""><i class="fa-solid fa-floppy-disk"></i> Save File</a>
+        <a href="Member_Open_File.html"><i class="fa-solid fa-folder-open"></i> Open File</a>
+        <a href="Member_Rename_File.html"><i class="fa-solid fa-pen"></i> Rename File</a>
+        <a href="Member_Delete_File.html"><i class="fa-solid fa-trash"></i> Delete File</a>
+        <a href="Member_Copy_File.html"><i class="fa-solid fa-copy"></i> Copy File</a>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <h1>WELCOME !</h1>
+      </div>
+    </div>
+  </div>
+  <script src="js/auth.js"></script>
+</body>
+</html>

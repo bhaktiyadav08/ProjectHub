@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leader Task Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Gradient Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #0b1440, #8800aa, #0b1440, #8800aa);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color:white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    nav .logo {
+      font-size: 2.5rem;
+      font-weight: 500;
+    }
+    nav .login-btn {
+      background-color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 5px;
+      color: #0b1440;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    nav .login-btn:hover {
+      background-color: #dcdcdc;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: block;
+      font-size: larger;
+      transition: background 0.3s;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background: rgba(255,255,255,0.2);
+      font-weight: bold;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .task-header h2 {
+      margin: 0;
+      font-size: 2rem;
+      color: #ffdd57;
+    }
+    .task-header button {
+      padding: 8px 16px;
+      font-size: 1rem;
+      background: #8800aa;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .task-header button:hover {
+      background: #aa00ff;
+    }
+
+    /* Tasks container */
+    .tasks-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* Task card */
+    .task-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(6px);
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .task-card:hover {
+      transform: translateY(-5px);
+    }
+    .task-card h3 {
+      margin: 0 0 10px 0;
+      color: #ffdd57;
+      font-size: 1.3rem;
+    }
+    .task-card p {
+      margin: 5px 0;
+      font-size: 1rem;
+    }
+    .task-card .assigned-members {
+      font-style: italic;
+      color: #ffffffaa;
+      font-size: 0.95rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .modal-content {
+      background: rgba(255,255,255,0.1);
+      padding: 25px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      color: white;
+      position: relative;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+      color: #ffdd57;
+    }
+    .modal-content input, .modal-content textarea, .modal-content select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+    .modal-content button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      background: #8800aa;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .modal-content button:hover {
+      background: #aa00ff;
+    }
+    .close-modal {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ffdd57;
+    }
+   .status-update {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f5f5f5;
+  color:black;
+  border-radius: 5px;
+}
+
+.status-select {
+  padding: 5px;
+  margin: 0 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.update-status-btn {
+  background: purple;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.update-status-btn:hover {
+  background: #5a005a;
+}
+  </style>
+</head>
+<body id="workspacepage">
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🚀 ProjectHub</div>
+    <button class="login-btn" onclick="window.location.href='login_page.html'">LEADER LOGGED-IN</button>
+  </nav>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+     <br />
+      <a href="Leader_Group_Info.html">📂 Group Info</a><br /><br />
+      <a href="Leader_Task_Assign.html">📝 Task Management</a><br /><br />
+      <a href="Leader_Project_Progress.html">📊 Project Progress</a><br /><br />
+      <a href="Leader_File_List.html">📁 File List</a><br /><br />
+      <a href="leader_Group_Chat.html">💬 Group Chat</a><br><br>
+      <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+      <a href="#"id="groupLogoutBtn">🚪 Log Out</a>
+    </div>
+   
+
+    <!-- Main -->
+    <div class="main">
+      <div class="task-header">
+        <h2>Assigned Tasks</h2>
+        <button id="addTaskBtn">+ Add Task</button>
+      </div>
+
+      <div class="tasks-container" id="tasksContainer">
+        <!-- Task cards will appear here dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Adding Task -->
+  <div class="modal" id="taskModal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModal">&times;</span>
+      <h3>Create New Task</h3>
+       <form id="assignTaskForm" onsubmit="assignTask(event)">
+      <input type="text" id="taskTitle" placeholder="Task Title" required />
+      <textarea id="taskDescription" placeholder="Task Description" required></textarea>
+      <label for="taskWeight">Task Weight/Priority:</label>
+    <select id="taskWeight" name="weight" required>
+        <option value="1">⭐ Low (Weight: 1)</option>
+        <option value="3" selected>⭐⭐ Medium (Weight: 3)</option>
+        <option value="5">⭐⭐⭐ High (Weight: 5)</option>
+        <option value="8">⭐⭐⭐⭐ Critical (Weight: 8)</option>
+    </select>
+      <input type="date" id="taskDueDate" required />
+      <select id="taskMembers" multiple required >
+        <!-- Members will be dynamically loaded from database -->
+      </select>
+      <button type="submit" id="saveTaskBtn">Save Task</button>
+    </form>
+
+  </div>
+</div>
+ <script src="js/workspace.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProjectHub Dashboard</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 🔥 Gradient Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(-45deg, #0b1440, #8800aa, #0b1440, #8800aa);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    nav .logo {
+      font-weight: 500;
+      font-size: 2.8rem;
+      color: white;
+    }
+
+    nav .login-btn {
+      background-color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 5px;
+      color: #0b1440;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    nav .login-btn:hover {
+      background-color: #dcdcdc;
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      flex: 1;
+      width: 100%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: rgba(0,0,0,0.4);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      display: block;
+      transition: background 0.3s;
+      font-size: larger;
+    }
+
+    .sidebar a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+   
+   /* File Operations Bar */
+    .file-ops {
+         margin-left: 2px;
+    width: calc(100% - 2px);
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px 0;
+    }
+
+    .file-ops a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background 0.3s, border-bottom 0.3s;
+      position: relative;
+    }
+
+    /* Hover effect */
+    .file-ops a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Active tab effect */
+    .file-ops a.active {
+     border-bottom: 3px solid #ffdd57;
+    font-weight: bold;
+    background-color: yellow;
+    color: black;
+    }
+
+     .sidebar a.active {
+     border-bottom: 3px solid #ffdd57;
+    font-weight: bold;
+    background-color: yellow;
+    color: black;
+    }
+     /* Main content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Content area */
+    .content {
+      flex: 1;
+      text-align: center;
+      padding: 40px;
+      background-color: white;
+    }
+
+    .content h1 {
+         font-size: 6rem;
+    margin-top: 17%;
+    color: black;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px white;
+    }
+    .group-info-list {
+  list-style: none;
+    padding-left: 0;
+    font-size: 1.6rem;
+    color: #0b1440;
+    text-align: left;
+    max-width: 600px;
+    margin-left: 7%;
+}
+
+.group-info-list li {
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.group-info-list i {
+  color: #8800aa; /* purple icons */
+  margin-right: 12px;
+  font-size: 1.8rem;
+  vertical-align: middle;
+}
+
+  </style>
+</head>
+<body id="workspacepage">
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🚀GroupName</div>
+    <button class="login-btn" onclick="window.location.href='login_page.html'">MEMBER LOGGED-IN</button>
+  </nav>
+  <!-- Layout -->
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <br>
+    <a href="Member_Group_Info.html" class="active">📂 Group Info</a><br><br>
+    <a href="Member_Task_Assigned.html">📝 Tasks Assigned</a><br><br>
+    <a href="Member_Project_Progress.html">📊 Project Progress</a><br><br>
+    <a href="Member_File_List.html">📁 File List</a><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <a href="#"id="groupLogoutBtn">🚪 Log Out</a>
+  </div>
+
+    <!-- Main area -->
+    <div class="main">
+
+      <!-- Content -->
+      <div class="content">
+  <ul id="groupInfoList"class="group-info-list">
+    <li><i class="fa-solid fa-people-group"></i> <strong>Group Name :</strong> ____________________________________________________________________________</li>
+    <li><i class="fa-solid fa-user-tie"></i> <strong>Group Leader :</strong> ______________________________________________________________________________</li>
+    <li><i class="fa-solid fa-users"></i> <strong>Group Members :</strong><br>
+    
+    </li>
+    <li><i class="fa-solid fa-calendar-days"></i> <strong>Group Created On :</strong> _________________________________</li>
+  </ul>
+</div>
+
+    </div>
+  </div>
+  <script src="js/workspace.js"></script>
+</body>
+</html>

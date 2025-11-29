@@ -1,0 +1,192 @@
+🌟 What is React?
+React is a JavaScript library developed by Facebook for building user interfaces (UI), especially for single-page applications.
+
+It helps you create reusable UI components.
+
+React uses a virtual DOM to make web pages fast.
+
+It’s component-based and works in a declarative style.
+
+📦 Core Concepts
+1. Components
+Components are like building blocks of a React app.
+
+There are two types:
+
+Functional Components (most used now)
+
+Class Components (older style)
+
+jsx
+Copy
+Edit
+// Functional Component
+function Welcome() {
+  return <h1>Hello, React!</h1>;
+}
+2. JSX (JavaScript XML)
+JSX allows writing HTML-like syntax inside JavaScript.
+
+jsx
+Copy
+Edit
+const element = <h1>Hello JSX</h1>;
+JSX gets compiled to React.createElement() behind the scenes.
+
+3. Props (Properties)
+Props are like arguments you pass to components.
+
+They make components dynamic and reusable.
+
+jsx
+Copy
+Edit
+function Greet(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+// Usage
+<Greet name="Bhakti" />
+4. State
+State is data that changes over time.
+
+Used to make components interactive.
+
+jsx
+Copy
+Edit
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </>
+  );
+}
+5. useEffect Hook
+Used to run side effects like fetching data, updating the DOM, or timers.
+
+jsx
+Copy
+Edit
+import { useEffect } from 'react';
+
+useEffect(() => {
+  console.log('Component mounted or updated');
+}, []);
+6. Conditional Rendering
+You can show elements conditionally using if, ternary, or &&.
+
+jsx
+Copy
+Edit
+{isLoggedIn ? <Dashboard /> : <Login />}
+7. Lists and Keys
+Rendering lists from arrays.
+
+jsx
+Copy
+Edit
+const names = ['Alice', 'Bob', 'Charlie'];
+
+names.map((name, index) => <p key={index}>{name}</p>);
+8. Event Handling
+Handling events like click, input change, etc.
+
+jsx
+Copy
+Edit
+function handleClick() {
+  alert('Button Clicked!');
+}
+
+<button onClick={handleClick}>Click</button>
+9. Forms in React
+React handles form inputs via controlled components.
+
+jsx
+Copy
+Edit
+const [name, setName] = useState("");
+
+<input value={name} onChange={(e) => setName(e.target.value)} />
+10. React Router (for Navigation)
+Used for creating multiple pages in a React app.
+
+bash
+Copy
+Edit
+npm install react-router-dom
+jsx
+Copy
+Edit
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/about" element={<About />} />
+  </Routes>
+</BrowserRouter>
+11. Styling in React
+Inline Styling:
+
+jsx
+Copy
+Edit
+<div style={{ color: 'blue' }}>Hello</div>
+CSS file:
+
+jsx
+Copy
+Edit
+import './App.css';
+12. Project Structure Example
+pgsql
+Copy
+Edit
+my-app/
+│
+├── src/
+│   ├── components/
+│   │   └── Navbar.js
+│   ├── App.js
+│   ├── index.js
+│
+├── public/
+│   └── index.html
+🔧 React Development Tips
+Use React Developer Tools (Chrome extension).
+
+Break the UI into small components.
+
+Practice with basic projects like:
+
+Todo App
+
+Calculator
+
+Weather App
+
+📌 Summary Table
+Concept	Description
+JSX	HTML in JS
+Component	UI Block
+Props	Pass data to components
+State	Internal data of component
+useEffect	Run code after render
+Router	Navigation between pages
+Hooks	Functional way to handle logic
+
+
+
+
+
+for $s in doc("student.xml")//student,
+$m in doc("marks.xml")//record
+where $s/@id=$m/@id
+return <result>{$s,$m}</result>

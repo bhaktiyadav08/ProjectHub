@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Group - ProjectHub</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #4b0082; /* Deep purple */
+      color: #333;
+    }
+
+    .container {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #1a1a1a;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 24px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* Optional: Add ProjectHub logo / heading similar to dashboard */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .header img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .back-link {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .back-link a {
+      color: white;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo/Header like the dashboard -->
+    <div class="header">
+       <div class="logo">🚀 ProjectHub</div>
+    </div>
+
+    <div class="card">
+      <h2>Create a New Group</h2>
+      <form id="createGroupForm">
+        <label for="groupName">Group Name:</label>
+        <input type="text" id="groupName" required />
+
+        <label for="groupDesc">Description:</label>
+        <textarea id="groupDesc" rows="4"></textarea>
+         <label for="groupCategory">Category:</label>
+  <select id="groupCategory" required>
+    <option value="">-- Select Category --</option>
+    <option value="Web Development">Web Development</option>
+    <option value="Mobile App">Mobile App</option>
+    <option value="Data Science">Data Science</option>
+    <option value="Machine Learning">Machine Learning</option>
+    <option value="Game Development">Game Development</option>
+    <option value="IoT">IoT</option>
+    <option value="Other">Other</option>
+  </select>
+       <label for="groupMembers">Invite Members:</label>
+<select id="groupMembers" multiple size="6">
+  <option disabled>Loading users...</option>
+</select>
+<small style="color: #555;">Hold Ctrl (Cmd on Mac) to select multiple users</small>
+
+
+        <button type="submit">Create Group</button>
+      </form>
+    </div>
+
+    <div class="back-link">
+      <a href="dashboard.html">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <!-- External JS -->
+  <script src="auth.js"></script>
+</body>
+</html>

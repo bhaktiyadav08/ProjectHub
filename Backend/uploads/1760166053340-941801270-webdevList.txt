@@ -1,0 +1,28 @@
+1.Basic Of Internet
+2.html
+3.css
+4.bootstrap
+5.tailwind css
+6.material ui
+7.icons library
+8.git
+9.github
+10.js
+11.json
+12.jquery
+13.asynchronus programming
+14.react
+15.redux
+16.router
+17.tanstack query
+18.router
+19.deployment
+20.node
+21.express
+22.mongo
+23.sql
+24. auth
+25.sdlc
+26.os
+27.agile methodologies
+28.system design

@@ -1,0 +1,59 @@
+Topic-Installation
+    npm create vite@latest
+  "Vite" stands for French for "fast" ⚡
+
+  Topic-Import and export in react and javascript:-
+   In React, importing and exporting components refer to the process of sharing and using components across different files in your application
+* export – Making something available to other files
+   You export a function, component, or variable from a file so that it can be used somewhere else.
+
+*import – Bringing something into a file.
+
+  - You import what was exported from another file to use it.
+  -"To import something in a file, we need to export it and while importing we need to mention the name of the file in which that component is exported."
+  - import and exports are used when we want to utilize function or object from one file to another.
+  ---Default is used when you want to export only one main value from a file.
+  ---Sometimes a file contains only one main thing — like one component, one function, or one   object — that you want to share with other files.
+  In such cases, you use **export default** .
+
+
+--We use / at the end of a JSX tag to close it immediately when the tag doesn't have any children inside it.  Use / to close a tag in one line when it doesn’t wrap any other element or content.
+
+Topic:- Need of react--
+  Problem in Plain HTML/JS	              React's Solution
+1)Code repetition	                         🔁 Reusable components
+2)Manual DOM updates	      ⚡ Automatic UI re-rendering
+3)Complex structure	                    📦 Organize via files/components
+4)Hard to maintain state              	        💾 Easy state & data flow
+5)Mixing logic + UI messy	   ✨ JSX keeps both together, cleanly
+6)Big apps = chaos	                    🚀 React makes big apps possible, smooth
+
+
+**🔔 In React:
+-A prop is a way to pass data from one component to another.
+  You can think of props like arguments passed to a function.
+   🧪 Props Are Like Function Parameters
+    React doesn’t care what prop names you use — you define them yourself.
+
+ **Why do we need a wrapper like <div> or <> </> in React?
+React components must return a single parent element.
+  ❌ This will throw an error:-->
+
+               function Example() {
+                 return (
+                 <h1>Hello</h1>
+                   <p>World</p>
+                 );
+               }
+❗ Error:
+JSX expressions must have one parent element.
+
+✅ React wants ONE return container
+Think of it like this:
+
+React needs to return one block that wraps everything — whether it’s:
+a <div>
+a section
+a React Fragment (<> </>)
+or any single parent element
+

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Group Management UI</title>
+<style>
+  /* Gradient animation keyframes */
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(270deg, #4B007B, #10064E, #4B007B, #10064E);
+    background-size: 800% 800%;
+    animation: gradientShift 20s ease infinite;
+    color: white;
+  }
+
+  /* Navbar */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: transparent;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  nav .logo {
+    font-weight: 700;
+    font-size: 2.0rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav .logo img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  /* Profile Button */
+  #profileBtn {
+    width: 45px;
+    height: 45px;
+    background-color: #3b3a99;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: box-shadow 0.3s ease;
+  }
+  #profileBtn:hover {
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  }
+
+  /* Sidebar */
+  #sidebar {
+    width: 300px;
+    padding: 30px 40px 40px;
+    background: #ffffff;
+    color: #222;
+    box-shadow: -8px 0 25px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    overflow-y: auto;
+    transition: transform 0.4s ease;
+    transform: translateX(100%);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    z-index: 1000;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  #sidebar.active {
+    transform: translateX(0);
+  }
+  #sidebar h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #222;
+  }
+  #sidebar .profile-info strong {
+    display: block;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #222;
+  }
+  #sidebar .profile-info span {
+    color: #666;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+  }
+  #sidebar .profile-info {
+    margin-bottom: 20px;
+  }
+  #sidebar button {
+    width: 100%;
+    padding: 12px 0;
+    margin-bottom: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(to right, #3b3a99, #5f59c5);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-shadow: 0 0 8px #fff;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(59, 58, 153, 0.3);
+  }
+  #sidebar button:hover {
+    background: linear-gradient(to right, #2a2973, #4948aa);
+    box-shadow: 0 6px 15px rgba(42, 41, 115, 0.5);
+  }
+
+  /* Overlay */
+  #overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    visibility: hidden;
+    z-index: 999;
+  }
+  #overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  /* Groups Section */
+  .group-container {
+    margin: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .group-box {
+    width: 100%;
+    max-width: 100%;
+    background-color: white;
+    padding: 20px 15px;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+  }
+  .group-box:hover {
+    background-color: yellow;
+  }
+  p {
+    font-weight: 600;
+    color: darkblue;
+    font-size: larger;
+  }
+  .group-container {
+    margin: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  /* Modal Overlay */
+.modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content box */
+.modal-content {
+  background-color: white;
+  width: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Header with gradient animation */
+.modal-content h2 {
+  background: linear-gradient(-45deg, #2f5aa8, #ff00cc, #2f5aa8, #8e44ad);
+  background-size: 400% 400%;
+  animation: spaceGradient 10s ease infinite;
+  color: white;
+  padding: 25px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.close:hover {
+  color: #ccc;
+}
+
+/* Form inside modal */
+#groupLoginForm {
+  padding: 30px 40px;
+}
+
+/* Form group */
+#groupLoginForm label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+  font-size: 15px;
+}
+
+#groupLoginForm input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+  font-size: 16px;
+  transition: border-bottom 0.3s ease;
+  margin-bottom: 20px;
+}
+
+#groupLoginForm input:focus {
+  border-bottom-color: #2f5aa8;
+}
+
+/* Submit button */
+#groupLoginForm button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #2f5aa8, #ff00cc, #2f5aa8);
+  background-size: 300% 100%;
+  animation: spaceGradient 6s ease infinite;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#groupLoginForm button:hover {
+  background-position: 100% 0;
+}
+
+/* Gradient keyframes */
+@keyframes spaceGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+</style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <span>🚀</span> ProjectHub
+    </div>
+    <div id="profileBtn">U</div>
+  </nav>
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <h2>Profile</h2>
+    <div class="profile-info">
+      <strong id="profileName">User</strong>
+      <span id="profileEmail">user@example.com</span>
+    </div>
+    <button id="editProfileBtn">Edit Profile</button>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay"></div>
+
+<!-- Groups -->
+<div class="group-container" id="groupList">
+  <!-- Groups will be dynamically injected here -->
+</div>
+<!-- Group Login Modal -->
+<div id="groupLoginModal" class="modal" >
+  <div class="modal-content">
+    <span id="closeGroupModal" class="close">&times;</span>
+    <h2 id="modalGroupName">Group Login</h2>
+    <form id="groupLoginForm">
+      <label for="groupPassword">Password:</label>
+      <input type="password" id="groupPassword" required />
+      <button type="submit">Enter Group</button>
+    </form>
+  </div>
+</div>
+<script src="js/auth.js"></script>
+</body>
+</html>

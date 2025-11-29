@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>ProjectHub - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: navy;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: white;
+      width: 600px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    @keyframes spaceGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .login-header {
+      background: linear-gradient(-45deg, #2f5aa8, #ff00cc, #2f5aa8, #8e44ad);
+      background-size: 400% 400%;
+      animation: spaceGradient 10s ease infinite;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .login-form {
+      padding: 40px 50px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-bottom: 2px solid #ccc;
+      outline: none;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+
+    .form-group input:focus {
+      border-bottom-color: #2f5aa8;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #2f5aa8, #ff00cc, #2f5aa8);
+      background-size: 300% 100%;
+      animation: spaceGradient 6s ease infinite;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-position: 100% 0;
+    }
+
+    .create-account {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .create-account a {
+      color: #2f5aa8;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .create-account a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      .login-container {
+        width: 90%;
+      }
+      .login-form {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-header">Login to ProjectHub</div>
+
+    <form class="login-form" id="loginForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Enter your username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Enter your password" required />
+      </div>
+
+      <button type="submit" class="login-btn">Login</button>
+
+      <div class="create-account">
+        <a href="Create_account_page.html">Create Account</a>
+      </div>
+    </form>
+  </div>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>
