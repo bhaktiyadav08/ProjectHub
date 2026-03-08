@@ -11,7 +11,11 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000", // Your frontend URL
+    origin: [
+      "http://localhost:3000",                    // ✅ Allow local
+      "http://localhost:5000",                    // ✅ Allow local backend
+      "https://projecthub-cg7d.onrender.com"      // ✅ Allow deployed
+    ], // Your frontend URL
     methods: ["GET", "POST"]
   }
 });
