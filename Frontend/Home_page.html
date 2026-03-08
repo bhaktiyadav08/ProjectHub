@@ -152,6 +152,51 @@
     ::-webkit-scrollbar-thumb:hover {
       background: rgba(255,255,255,0.5);
     }
+    @media (max-width: 768px) {
+
+  main {
+    padding: 20px;
+  }
+
+  main h1 {
+    font-size: 2rem;
+  }
+
+  main p.subtitle {
+    font-size: 1rem;
+  }
+
+  nav {
+    padding: 12px 20px;
+  }
+
+  nav .logo {
+    font-size: 1.5rem;
+  }
+
+  nav .logo img {
+    height: 28px;
+  }
+
+  nav .login-btn {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+  }
+
+  /* 2 cards per row on mobile */
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 15px 50px 15px; ;
+  }
+
+  /* last card centered */
+  .cards .card:last-child {
+    grid-column: auto;
+    justify-self: center;
+    max-width: 300px;
+  }
+
+}
   </style>
 </head>
 <body>

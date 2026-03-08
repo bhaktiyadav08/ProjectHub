@@ -104,6 +104,49 @@
     .create-btn:hover {
       background-position: 100% 0;
     }
+    /* Mobile Responsive Design */
+@media (max-width: 768px) {
+
+  body{
+    height: auto;
+    padding: 20px;
+  }
+
+  .create-container{
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .create-header{
+    font-size: 22px;
+    padding: 20px;
+  }
+
+  .create-form{
+    padding: 25px;
+  }
+
+  /* Stack label and input vertically */
+  .form-group{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label{
+    width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .form-group input{
+    width: 100%;
+  }
+
+  .create-btn{
+    width: 100%;
+    margin-top: 25px;
+  }
+
+}
   </style>
 </head>
 <body>
