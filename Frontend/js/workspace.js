@@ -32,7 +32,7 @@ function initChat() {
     
     // Connect to Socket.io if not already connected
     if (!chatSocket) {
-        chatSocket = io();
+        const chatSocket = io();
         
         // Join group room
         chatSocket.emit('join_group', groupId);
@@ -316,7 +316,7 @@ function initChatPage() {
 function initializeSocket() {
     // Only initialize if not already connected
     if (!socket) {
-        socket = io();
+        const socket = io();
         
         const userId = localStorage.getItem("userId");
         const token = localStorage.getItem("token");
