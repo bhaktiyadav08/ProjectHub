@@ -211,9 +211,6 @@ socket.on('task_assigned', async (data) => {
 // Make io available to other files
 app.set('io', io);
 
-server.listen(5000, () => {
-  console.log('Server running with Socket.io on port 5000');
-});
 // Middleware
 app.use(express.json());
 
@@ -273,7 +270,7 @@ mongoose.connect(process.env.MONGODB_URI,)
     console.log("✅ MongoDB connected successfully");
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () =>
-      console.log(`🚀 Server running on http://localhost:${PORT}`)
+      console.log(`🚀 Server running with Socket.io on port ${PORT}`)
     );
   })
   .catch((err) => {

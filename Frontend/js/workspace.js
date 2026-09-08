@@ -318,6 +318,7 @@ function initializeSocket() {
     if (!socket) {
         socket = io();
         
+        
         const userId = localStorage.getItem("userId");
         const token = localStorage.getItem("token");
         
