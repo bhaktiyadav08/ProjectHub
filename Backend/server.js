@@ -1,5 +1,6 @@
 // server.js
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
@@ -215,9 +216,14 @@ app.set('io', io);
 
 // Middleware
 app.use(express.json());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://projecthub-cg7d.onrender.com"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+}));
 
-// 👉 Serve static frontend files (HTML, CSS, JS)
-app.use(express.static(path.join(__dirname, "../Frontend")));
 
 // Import Routes
 const authRoutes = require("./routes/authRoutes");
@@ -258,12 +264,9 @@ const authenticate = (req, res, next) => {
 };
 // Fallback (for frontend routing)
 app.get('/', (req, res) => {
-  // If the request is API‑route, maybe respond with JSON 404
-  if (req.originalUrl.startsWith('/api/')) {
-    res.status(404).json({ message: "API route not found" });
-  } else {
-    res.sendFile(path.join(__dirname, "../Frontend/Home_page.html"));
-  }
+  res.json({
+    message: "ProjectHub backend is running"
+  });
 });
 
 // ✅ Connect to MongoDB
