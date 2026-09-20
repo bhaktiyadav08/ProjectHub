@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
+import API_URL from "../config/api";
 import { useNavigate } from "react-router-dom";
 
 function ProjectProgress() {
@@ -16,8 +17,8 @@ function ProjectProgress() {
     try {
       setLoading(true);
       const [progressRes, tasksRes] = await Promise.all([
-        fetch(`/api/tasks/progress/${groupId}`, { headers: { Authorization: `Bearer ${token}` } }),
-        fetch(`/api/tasks/group/${groupId}`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/tasks/progress/${groupId}`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/tasks/group/${groupId}`, { headers: { Authorization: `Bearer ${token}` } }),
       ]);
       setSummary(await progressRes.json());
       const taskData = await tasksRes.json();

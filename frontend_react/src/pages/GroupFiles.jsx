@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
+import API_URL from "../config/api";
 import { useNavigate } from "react-router-dom";
 
 function GroupFiles() {
@@ -15,7 +16,7 @@ function GroupFiles() {
   const loadFiles = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/files/group/${groupId}`, {
+      const res = await fetch(`${API_URL}/api/files/group/${groupId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -44,7 +45,7 @@ function GroupFiles() {
 
     try {
       setUploading(true);
-      const res = await fetch("/api/files/upload", {
+      const res = await fetch("${API_URL}/api/files/upload", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }, // no Content-Type — browser sets multipart boundary
         body: formData,
@@ -65,7 +66,7 @@ function GroupFiles() {
     // Direct navigation triggers res.download() from the browser; auth header can't be sent this way,
     // so this only works if your download route doesn't strictly require the header,
     // OR open in new tab and let cookies/session handle it. Since you're JWT-header-based, use fetch+blob instead:
-    fetch(`/api/files/download/${fileId}`, {
+    fetch(`${API_URL}/api/files/download/${fileId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.blob())
@@ -88,7 +89,7 @@ function GroupFiles() {
     if (!newName || newName === currentName) return;
 
     try {
-      const res = await fetch(`/api/files/rename/${fileId}`, {
+      const res = await fetch(`${API_URL}/api/files/rename/${fileId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ newName }),
@@ -105,7 +106,7 @@ function GroupFiles() {
   const handleDelete = async (fileId) => {
     if (!window.confirm("Delete this file?")) return;
     try {
-      const res = await fetch(`/api/files/delete/${fileId}`, {
+      const res = await fetch(`${API_URL}/api/files/delete/${fileId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

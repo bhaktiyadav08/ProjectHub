@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import API_URL from "../config/api";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
@@ -39,7 +40,7 @@ function Dashboard() {
       try {
         setLoading(true);
 
-        const response = await fetch("/api/groups", {
+        const response = await fetch(`${API_URL}/api/groups`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -60,7 +61,7 @@ function Dashboard() {
         setGroups(Array.isArray(data) ? data : []);
         if (role === "admin") {
           try {
-            const usersResponse = await fetch("/api/groups/users", {
+            const usersResponse = await fetch(`${API_URL}/api/groups/users`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -89,7 +90,7 @@ function Dashboard() {
     try {
       setLoading(true);
 
-      const response = await fetch("/api/groups", {
+      const response = await fetch(`${API_URL}/api/groups`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -117,7 +118,7 @@ function Dashboard() {
   // eslint-disable-next-line no-unused-vars
   const fetchUsers = async () => {
     try {
-      const response = await fetch("/api/groups/users", {
+      const response = await fetch(`${API_URL}/api/groups/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -139,7 +140,7 @@ function Dashboard() {
 
   const handleLogout = async () => {
     try {
-      await fetch("/api/auth/logout", {
+      await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -174,7 +175,7 @@ function Dashboard() {
     if (!selectedGroup || !groupPassword) return;
 
     try {
-      const response = await fetch("/api/groups/login", {
+      const response = await fetch(`${API_URL}/api/groups/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -248,7 +249,7 @@ function Dashboard() {
     }
 
     try {
-      const response = await fetch("/api/groups/create", {
+      const response = await fetch(`${API_URL}/api/groups/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

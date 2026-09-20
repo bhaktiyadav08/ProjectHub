@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import API_URL from "../config/api";
 import { useNavigate } from "react-router-dom";
 
 function EditProfile() {
@@ -23,7 +24,7 @@ function EditProfile() {
   useEffect(() => {
     const loadProfile = async () => {
       try {
-        const response = await fetch("/api/auth/profile", {
+        const response = await fetch(`${API_URL}/api/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -79,7 +80,7 @@ function EditProfile() {
     }
 
     try {
-      const response = await fetch("/api/auth/update-profile", {
+      const response = await fetch(`${API_URL}/api/auth/update-profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

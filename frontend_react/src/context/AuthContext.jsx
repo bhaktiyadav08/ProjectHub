@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
+import API_URL from "../config/api";
 import { api } from "../api/client";
 
 export const AuthContext = createContext();
@@ -11,7 +12,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return; // loading already initialized to false above
-    api("/auth/profile")
+    api(`${API_URL}/auth/profile`)
       .then(setUser)
       .catch(() => localStorage.removeItem("token"))
       .finally(() => setLoading(false));
@@ -27,7 +28,7 @@ export function AuthProvider({ children }) {
 }
 
   function logout() {
-    api("/auth/logout", { method: "POST" }).catch(() => {});
+    api(`${API_URL}/auth/logout`, { method: "POST" }).catch(() => {});
     localStorage.clear();
     setUser(null);
   }

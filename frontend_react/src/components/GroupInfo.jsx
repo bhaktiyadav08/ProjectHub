@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import API_URL from "../config/api";
 import { useNavigate } from "react-router-dom";
 
 function GroupInfo({ role }) {
@@ -15,7 +16,7 @@ function GroupInfo({ role }) {
       return;
     }
 
-    fetch("/api/groups", { headers: { Authorization: `Bearer ${token}` } })
+    fetch(`${API_URL}/api/groups`, { headers: { Authorization: `Bearer ${token}` } })
       .then((res) => res.json())
       .then((data) => {
         const found = Array.isArray(data)

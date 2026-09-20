@@ -1,6 +1,8 @@
+import API_URL from "../config/api";
+
 export async function api(path, options = {}) {
   const token = localStorage.getItem("token");
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${API_URL}/api${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",

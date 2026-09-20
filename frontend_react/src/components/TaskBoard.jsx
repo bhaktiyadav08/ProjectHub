@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
+import API_URL from "../config/api";
 import { useNavigate } from "react-router-dom";
 
 function TaskBoard({ role }) {
@@ -20,7 +21,7 @@ const loadTasks = useCallback(async () => {
     try {
       setLoading(true);
       // ASSUMED endpoint — confirm against taskRoutes.js
-      const res = await fetch(`/api/tasks/group/${groupId}`, {
+      const res = await fetch(`${API_URL}/api/tasks/group/${groupId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -34,7 +35,7 @@ const loadTasks = useCallback(async () => {
 
   const loadGroupMembers = useCallback(async () => {
     try {
-      const res = await fetch("/api/groups", { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`${API_URL}/api/groups`, { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       const found = Array.isArray(data) ? data.find(g => g._id === groupId) : null;
       setMembers(found?.members || []);
@@ -65,7 +66,7 @@ const loadTasks = useCallback(async () => {
     }
     try {
       // ASSUMED endpoint — confirm against taskRoutes.js
-      const res = await fetch("/api/tasks", {
+      const res = await fetch(`${API_URL}/api/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
@@ -92,7 +93,7 @@ const loadTasks = useCallback(async () => {
   const handleStatusChange = async (taskId, newStatus) => {
     try {
       // ASSUMED endpoint — confirm against taskRoutes.js
-      const res = await fetch(`/api/tasks/${taskId}`, {
+      const res = await fetch(`${API_URL}/api/tasks/${taskId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ status: newStatus }),

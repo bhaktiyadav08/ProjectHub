@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import API_URL from "../config/api";
 import { socket } from "../socket";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +20,7 @@ function GroupChat() {
   const loadMessages = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/chat/${groupId}`, {
+      const res = await fetch(`${API_URL}/api/chat/${groupId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -74,7 +75,7 @@ function GroupChat() {
     e.preventDefault();
     if (!text.trim()) return;
     try {
-      const res = await fetch(`/api/chat/${groupId}`, {
+      const res = await fetch(`${API_URL}/api/chat/${groupId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ message: text.trim() }),
@@ -90,7 +91,7 @@ function GroupChat() {
   const handleDelete = async (messageId) => {
     if (!window.confirm("Delete this message?")) return;
     try {
-      await fetch(`/api/chat/${messageId}`, {
+      await fetch(`${API_URL}/api/chat/${messageId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
