@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 const path = require("path");
 const Notification=require('./models/notification');
 dotenv.config();
@@ -12,7 +13,8 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: [
-      "http://localhost:3000",                    // ✅ Allow local
+      "http://localhost:3000",  
+       "http://localhost:5173",                  // ✅ Allow local
       "http://localhost:5000",                    // ✅ Allow local backend
       "https://projecthub-cg7d.onrender.com"      // ✅ Allow deployed
     ], // Your frontend URL
