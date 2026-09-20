@@ -220,11 +220,11 @@ app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://projecthub-cg7d.onrender.com"
+    "https://projecthub-cg7d.onrender.com",
+    "https://project-hub-l4da.onrender.com"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
 }));
-
 
 // Import Routes
 const authRoutes = require("./routes/authRoutes");
