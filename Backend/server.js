@@ -20,7 +20,7 @@ const io = socketIo(server, {
       "https://projecthub-cg7d.onrender.com",
       "https://project-hub-l4da.onrender.com"    // ✅ Allow deployed
     ], // Your frontend URL
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
   }
 });
 // Store connected users
