@@ -17,7 +17,8 @@ const io = socketIo(server, {
       "http://localhost:3000",  
        "http://localhost:5173",                  // ✅ Allow local
       "http://localhost:5000",                    // ✅ Allow local backend
-      "https://projecthub-cg7d.onrender.com"      // ✅ Allow deployed
+      "https://projecthub-cg7d.onrender.com",
+      "https://project-hub-l4da.onrender.com"    // ✅ Allow deployed
     ], // Your frontend URL
     methods: ["GET", "POST"]
   }
