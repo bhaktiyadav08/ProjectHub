@@ -20,7 +20,8 @@ const io = socketIo(server, {
       "https://projecthub-cg7d.onrender.com",
       "https://project-hub-l4da.onrender.com"    // ✅ Allow deployed
     ], // Your frontend URL
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+     credentials: true
   }
 });
 // Store connected users
@@ -223,7 +224,8 @@ app.use(cors({
     "https://projecthub-cg7d.onrender.com",
     "https://project-hub-l4da.onrender.com"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  credentials: true
 }));
 
 // Import Routes
