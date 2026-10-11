@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return; // loading already initialized to false above
-    api(`/api/auth/profile`)
+    api(`/auth/profile`)
       .then(setUser)
       .catch(() => localStorage.removeItem("token"))
       .finally(() => setLoading(false));
