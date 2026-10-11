@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import API_URL from "../config/api";
 import { api } from "../api/client";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
@@ -12,7 +13,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return; // loading already initialized to false above
-    api(`${API_URL}/auth/profile`)
+    api(`/api/auth/profile`)
       .then(setUser)
       .catch(() => localStorage.removeItem("token"))
       .finally(() => setLoading(false));
