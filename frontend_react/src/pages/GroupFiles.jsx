@@ -137,8 +137,8 @@ function GroupFiles() {
           <a href="#" onClick={() => navigate(role === "leader" ? "/leader-group" : "/member-group")}>📂 Group Info</a><br /><br />
           <a href="#" onClick={() => navigate(role === "leader" ? "/leader-tasks" : "/member-tasks")}>📝 {role === "leader" ? "Task Management" : "Tasks Assigned"}</a><br /><br />
           <a href="#" onClick={() => navigate("/progress")}>📊 Project Progress</a><br /><br />
-          <a href="#"onClick={()=> navigate("/files")}>📁 File List</a><br /><br />
-          <a href="#" className="active" onClick={() => navigate("/chat")} >💬 Group Chat</a><br /><br />
+          <a href="#" className="active" onClick={()=> navigate("/files")}>📁 File List</a><br /><br />
+          <a href="#" onClick={() => navigate("/chat")} >💬 Group Chat</a><br /><br />
           <a href="#" onClick={handleLogout}>🚪 Log Out</a>
         </div>
 
