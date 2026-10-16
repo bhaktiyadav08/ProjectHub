@@ -1,3 +1,4 @@
+import API_URL from "../config/api";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -7,26 +8,63 @@ function CreateAccount() {
     username: "",
     email: "",
     branch: "",
-    className: "",
+    className: "", // Maps to database userClass
     phone: "",
     password: "",
   });
 
+  // Added missing UI states
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((previous) => ({
       ...previous,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  // ⚡ The missing handleSubmit implementation
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    console.log("Registration data:", formData);
+    console.log("Registration data sending:", formData);
 
-    // We will connect this to your existing auth.js/backend next.
+    try {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // Ensure property keys perfectly match what your backend controller reads!
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          branch: formData.branch,
+          userClass: formData.className, // Matches backend expected parameter
+          phone: formData.phone,
+          password: formData.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Registration failed. Please try again.");
+        return;
+      }
+
+      // Success! Send user to login page or dashboard
+      console.log("Registration successful!", data);
+      navigate("/login"); 
+      
+    } catch (err) {
+      console.error("Network error:", err);
+      setError("Server error. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -42,6 +80,9 @@ function CreateAccount() {
         <div className="create-account-header">
           <h1>CREATE ACCOUNT</h1>
         </div>
+
+        {/* Display backend errors if they happen */}
+        {error && <div className="auth-error" style={{ color: "red", marginBottom: 12 }}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -110,8 +151,9 @@ function CreateAccount() {
             />
           </div>
 
-          <button type="submit" className="create-account-btn">
-            CREATE
+          {/* Button shows state feedback while running network task */}
+          <button type="submit" className="create-account-btn" disabled={loading}>
+            {loading ? "CREATING..." : "CREATE"}
           </button>
         </form>
       </div>
