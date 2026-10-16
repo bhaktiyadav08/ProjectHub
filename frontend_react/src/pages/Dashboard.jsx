@@ -84,7 +84,7 @@ function Dashboard() {
     };
 
     loadDashboard();
-  }, [token, navigate]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [token, navigate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchGroups = async () => {
     try {
@@ -416,16 +416,41 @@ function Dashboard() {
 
                 <div className="members-selection">
                   {users.map((user) => (
-                    <label key={user._id} className="member-option">
+                    <label
+                      key={user._id}
+                      className="member-option"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        padding: "8px",
+                        cursor: "pointer",
+                      }}
+                    >
                       <input
                         type="checkbox"
                         checked={groupForm.members.includes(user._id)}
                         onChange={() => handleMemberChange(user._id)}
+                        style={{ cursor: "pointer" }}
                       />
 
-                      <span>{user.username}</span>
-
-                      <small>{user.email}</small>
+                      {/* This wrapper forces the text to stack cleanly instead of jamming onto one line */}
+                      <div
+                        className="member-info"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                          lineHeight: "1.2",
+                        }}
+                      >
+                        <span style={{ fontWeight: "bold", fontSize: "14px" }}>
+                          {user.username}
+                        </span>
+                        <small style={{ color: "#8a99ad", fontSize: "12px" }}>
+                          {user.email}
+                        </small>
+                      </div>
                     </label>
                   ))}
                 </div>
