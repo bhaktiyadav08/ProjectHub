@@ -8,7 +8,7 @@
 [![Express](https://img.shields.io/badge/Express-4.0-000000?style=flat-square&logo=express)](https://expressjs.com)
 [![Render](https://img.shields.io/badge/Deployed-Render-46E3B7?style=flat-square&logo=render)](https://projecthub-cg7d.onrender.com)
 
-🔗 **Live Demo:** [https://projecthub-cg7d.onrender.com](https://projecthub-cg7d.onrender.com)
+🔗 **Live Demo:** [https://projecthub-cg7d.onrender.com](https://project-hub-l4da.onrender.com)
 
 ---
 
