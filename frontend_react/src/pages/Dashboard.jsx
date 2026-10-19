@@ -419,13 +419,7 @@ function Dashboard() {
                     <label
                       key={user._id}
                       className="member-option"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                        padding: "8px",
-                        cursor: "pointer",
-                      }}
+                     
                     >
                       <input
                         type="checkbox"
@@ -437,12 +431,7 @@ function Dashboard() {
                       {/* This wrapper forces the text to stack cleanly instead of jamming onto one line */}
                       <div
                         className="member-info"
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                          lineHeight: "1.2",
-                        }}
+                        
                       >
                         <span style={{ fontWeight: "bold", fontSize: "14px" }}>
                           {user.username}

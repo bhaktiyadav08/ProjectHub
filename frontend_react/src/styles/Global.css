@@ -736,7 +736,7 @@ button {
 .members-selection {
   max-height: 180px;
   overflow-y: auto;
-  padding: 10px;
+  padding: 6px;
   border: 1px solid var(--border);
   border-radius: 9px;
 }
@@ -744,24 +744,55 @@ button {
 .member-option {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  margin: 0;
+  box-sizing: border-box;
   border-radius: 7px;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.member-option:hover {
+  background: var(--panel-2);
+}
+
+.member-option:has(input[type="checkbox"]:checked) {
+  background: var(--panel-2);
+  border: 1px solid var(--accent);
 }
 
 .member-option input[type="checkbox"] {
-  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  min-width: 15px;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 15px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.member-option .member-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 0 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .member-option span {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
 .member-option small {
   color: var(--text-soft);
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .dashboard-action-btn {
