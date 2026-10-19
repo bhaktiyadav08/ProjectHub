@@ -1,7 +1,12 @@
 // server.js
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 const path = require("path");
 const Notification=require('./models/notification');
 dotenv.config();
@@ -12,11 +17,14 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: [
-      "http://localhost:3000",                    // ✅ Allow local
+      "http://localhost:3000",  
+       "http://localhost:5173",                  // ✅ Allow local
       "http://localhost:5000",                    // ✅ Allow local backend
-      "https://projecthub-cg7d.onrender.com"      // ✅ Allow deployed
+      "https://projecthub-cg7d.onrender.com",
+      "https://project-hub-l4da.onrender.com"    // ✅ Allow deployed
     ], // Your frontend URL
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+     credentials: true
   }
 });
 // Store connected users
@@ -213,9 +221,15 @@ app.set('io', io);
 
 // Middleware
 app.use(express.json());
-
-// 👉 Serve static frontend files (HTML, CSS, JS)
-app.use(express.static(path.join(__dirname, "../Frontend")));
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://projecthub-cg7d.onrender.com",
+    "https://project-hub-l4da.onrender.com"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  credentials: true
+}));
 
 // Import Routes
 const authRoutes = require("./routes/authRoutes");
@@ -256,12 +270,9 @@ const authenticate = (req, res, next) => {
 };
 // Fallback (for frontend routing)
 app.get('/', (req, res) => {
-  // If the request is API‑route, maybe respond with JSON 404
-  if (req.originalUrl.startsWith('/api/')) {
-    res.status(404).json({ message: "API route not found" });
-  } else {
-    res.sendFile(path.join(__dirname, "../Frontend/Home_page.html"));
-  }
+  res.json({
+    message: "ProjectHub backend is running"
+  });
 });
 
 // ✅ Connect to MongoDB

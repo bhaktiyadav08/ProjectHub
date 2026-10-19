@@ -8,7 +8,7 @@ exports.createGroup = async (req, res) => {
     const { name, leader, members, password,category} = req.body;
 
     // hash the group password
-    const hashedPwd = await bcrypt.hash(password, 10);
+    const hashedPwd = await bcrypt.hash(password.trim(), 10);
     
     const group = new Group({
       name,
