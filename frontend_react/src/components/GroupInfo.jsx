@@ -16,7 +16,9 @@ function GroupInfo({ role }) {
       return;
     }
 
-    fetch(`${API_URL}/api/groups`, { headers: { Authorization: `Bearer ${token}` } })
+    fetch(`${API_URL}/api/groups`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => res.json())
       .then((data) => {
         const found = Array.isArray(data)
@@ -42,7 +44,11 @@ function GroupInfo({ role }) {
         <div className="logo">🚀 {group?.name || "ProjectHub"}</div>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <span className="group-category">
-            {role === "leader" ? "Leader" : "Member"}
+            {role === "admin"
+              ? "Admin"
+              : role === "leader"
+                ? "Leader"
+                : "Member"}
           </span>
           <button
             className="profile-btn"
@@ -65,7 +71,13 @@ function GroupInfo({ role }) {
           <a
             href="#"
             onClick={() =>
-              navigate(role === "leader" ? "/leader-tasks" : "/member-tasks")
+              navigate(
+                role === "admin"
+                  ? "/admin-group-manage"
+                  : role === "leader"
+                    ? "/leader-tasks"
+                    : "/member-tasks",
+              )
             }
           >
             📝 {role === "leader" ? "Task Management" : "Tasks Assigned"}
@@ -77,10 +89,14 @@ function GroupInfo({ role }) {
           </a>
           <br />
           <br />
-          <a href="#"onClick={()=> navigate("/files")}>📁 File List</a>
+          <a href="#" onClick={() => navigate("/files")}>
+            📁 File List
+          </a>
           <br />
           <br />
-          <a href="#" onClick={()=> navigate("/chat")}>💬 Group Chat</a>
+          <a href="#" onClick={() => navigate("/chat")}>
+            💬 Group Chat
+          </a>
           <br />
           <br />
           <a href="#" onClick={handleLogout}>

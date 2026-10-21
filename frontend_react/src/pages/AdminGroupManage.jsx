@@ -1,4 +1,7 @@
-function AdminGroupManage() {
-  return <div>Admin Group Management — WIP</div>;
+import GroupInfo from "../components/GroupInfo";
+
+function AdminGroup() {
+  return <GroupInfo role="admin" />;
 }
-export default AdminGroupManage;
+
+export default AdminGroup;
