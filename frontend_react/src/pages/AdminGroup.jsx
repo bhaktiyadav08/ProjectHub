@@ -1,4 +1,7 @@
+import GroupInfo from "../components/GroupInfo";
+
 function AdminGroup() {
-  return <div>Admin Group Workspace — WIP</div>;
+  return <GroupInfo role="admin" />;
 }
+
 export default AdminGroup;
