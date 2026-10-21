@@ -69,7 +69,7 @@ function GroupInfo({ role }) {
               e.preventDefault();
               navigate(
                 role === "admin"
-                  ? "/admin-group"
+                  ? `/admin-group/${groupId}`
                   : role === "leader"
                     ? "/leader-group"
                     : "/member-group",
@@ -85,7 +85,7 @@ function GroupInfo({ role }) {
             onClick={() =>
               navigate(
                 role === "admin"
-                  ? "/admin-group-manage"
+                  ? `/admin-group/${groupId}`
                   : role === "leader"
                     ? "/leader-tasks"
                     : "/member-tasks",
