@@ -63,7 +63,19 @@ function GroupInfo({ role }) {
       <div className="layout">
         <div className="sidebar">
           <br />
-          <a href="#" className="active">
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(
+                role === "admin"
+                  ? "/admin-group"
+                  : role === "leader"
+                    ? "/leader-group"
+                    : "/member-group",
+              );
+            }}
+          >
             📂 Group Info
           </a>
           <br />
